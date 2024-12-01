@@ -5,7 +5,7 @@ let a = 5;
 // let exp1 = ((4 + 5) && "abc" || false + "test") * (a-- || --a) || (false && (++a + 1)) *  "end";
 
 //     9              "abc"           *         5   NaN            false           *  "end"  NaN
-// Output: NaN
+// Output: NaN;
 
 let exp2 = 10 * ("foo" && 5 + (++a) || "bar") && (false + "test") || 0 && "true";
 
@@ -38,3 +38,29 @@ let exp7 = ("foo" + 5) * (++a + true) || 2 * 3 + (true + 2) || "result";
 
 // 'foo5' * (6+1 //7) 'foo5'*7  //NaN || 6 + (1+2 //3) 6+3  // true
 // Output:true;
+
+
+let exp8 = (0 + 1) && (true + 0) || (false + "test") * 4 && 3 + 2 || "value";
+
+        //  1      &&     1      ||  'falsetest' * 4 // NaN     &&   5   || "value"
+                    // 1         ||    NaN &&  5  // NaN     || "value"
+                    // 1         ||    NaN                || "value"
+                            // 1 || "value"
+// Output: 1;
+
+
+let exp9 = 3 * "abc" + (true + 1) || (++a + "test") && (3 + "result") || null;
+
+//  NaN     +  2  // NaN     || (6+'test'  //'6test') && (3+'result'  //'3result')  || null
+            //   NaN         ||  '6test'  &&  '3result'  ||  Null
+ // false // will move forward           '3result'       || Null
+
+// Output: '3result';   
+
+let exp10 = (++a + false) && "start" || 0 + 1 && "value" || 5 * "end" && a++;
+
+// (6+0 //6) && "start" ||            (0+1 //1) && 'value'          || 5 * 'end' && a++
+    // 6 && "start"     ||                  1  &&  'value'          ||    NaN     &&  a++
+    // start            ||                     value                ||          NaN
+       
+// Output: Start;
